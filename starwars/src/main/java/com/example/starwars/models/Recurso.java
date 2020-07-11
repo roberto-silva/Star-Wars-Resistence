@@ -4,9 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Recurso implements Serializable {
@@ -18,25 +24,31 @@ public class Recurso implements Serializable {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "nome")
-	private String name;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "rebelde_id", nullable = false)
+	@JsonIgnore
+	private Rebelde rebelde;
 	
-	@Column(name = "pontos")
-	private String pontos;
+	@ManyToOne
+	private TipoRecurso tipo;
 	
+	@Column(name = "quantidade")
+	private String quantidade;
+
+	
+
 	public Recurso() {
 		super();
 	}
 
-	
-	public Recurso(Long id, String name, String pontos) {
+	public Recurso(Long id, Rebelde rebelde, TipoRecurso tipo, String quantidade) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.pontos = pontos;
+		this.rebelde = rebelde;
+		this.tipo = tipo;
+		this.quantidade = quantidade;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -46,26 +58,30 @@ public class Recurso implements Serializable {
 		this.id = id;
 	}
 
-
-	public String getName() {
-		return name;
+	public TipoRecurso getTipo() {
+		return tipo;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setTipo(TipoRecurso tipo) {
+		this.tipo = tipo;
 	}
 
-
-	public String getPontos() {
-		return pontos;
+	public String getQuantidade() {
+		return quantidade;
 	}
 
+	public void setQuantidade(String quantidade) {
+		this.quantidade = quantidade;
+	}
+	
 
-	public void setPontos(String pontos) {
-		this.pontos = pontos;
+	public Rebelde getRebelde() {
+		return rebelde;
 	}
 
+	public void setInventario(Rebelde rebelde) {
+		this.rebelde = rebelde;
+	}
 
 	@Override
 	public int hashCode() {

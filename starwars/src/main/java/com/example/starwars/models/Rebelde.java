@@ -1,7 +1,9 @@
 package com.example.starwars.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
+
 @Entity
 @Table(name="rebelde")
 public class Rebelde implements Serializable {
@@ -22,7 +25,7 @@ public class Rebelde implements Serializable {
 	private Long id;
 	
 	@Column(name = "nome")
-	private String name;
+	private String nome;
 	
 	@Column(name = "idade")
 	private int idade;
@@ -36,23 +39,22 @@ public class Rebelde implements Serializable {
 	@OneToOne
 	private Localizacao localizacao;
 	
-	@OneToOne
-	private Inventario inventario;
+	@OneToMany(mappedBy = "rebelde", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Recurso> inventario;
 	
 	public Rebelde() {
 		super();
 	}
 
-	public Rebelde(Long id, String name, int idade, String genero, boolean traidor, Localizacao localizacao,
-			Inventario inventario) {
+	public Rebelde(Long id, String name, int idade, String genero, boolean traidor, Localizacao localizacao) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.nome = name;
 		this.idade = idade;
 		this.genero = genero;
 		this.traidor = traidor;
 		this.localizacao = localizacao;
-		this.inventario = inventario;
+
 	}
 
 	public Long getId() {
@@ -63,12 +65,12 @@ public class Rebelde implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public int getIdade() {
@@ -103,11 +105,11 @@ public class Rebelde implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public Inventario getInventario() {
+	public List<Recurso> getInventario() {
 		return inventario;
 	}
 
-	public void setInventario(Inventario inventario) {
+	public void setInventario(List<Recurso> inventario) {
 		this.inventario = inventario;
 	}
 
