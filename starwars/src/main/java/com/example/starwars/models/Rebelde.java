@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +24,7 @@ public class Rebelde implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	
@@ -39,6 +43,7 @@ public class Rebelde implements Serializable {
 	@OneToOne
 	private Localizacao localizacao;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "rebelde", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Recurso> inventario;
 	

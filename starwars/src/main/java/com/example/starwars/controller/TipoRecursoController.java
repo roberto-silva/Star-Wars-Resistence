@@ -15,39 +15,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.starwars.models.Localizacao;
-import com.example.starwars.service.LocalizacaoService;
+import com.example.starwars.models.TipoRecurso;
+import com.example.starwars.service.TipoRecursoService;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/starwars")
-public class LocalizacaoController {
+public class TipoRecursoController {
 	
 	@Autowired
-	private LocalizacaoService service;
+	private TipoRecursoService service;
 	
-	@GetMapping("/localizacao")
-	public List<Localizacao> listarRebeldes(){
+	@GetMapping("/recursos/tipos")
+	public List<TipoRecurso> listarRebeldes(){
 		return this.service.findAll();
 	}
 	
-	@GetMapping("/localizacao/{id}")
-	public Localizacao getRebeldeById(@PathVariable(value="id") Long id) {
+	@GetMapping("/recursos/tipos/{id}")
+	public TipoRecurso getRebeldeById(@PathVariable(value="id") Long id) {
 		return this.service.findById(id);
 	}
 	
-	@RequestMapping(value="/localizacao", method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody Localizacao localizacao) {
-		Localizacao novaLocalizacao = this.service.save(localizacao);
-        return ResponseEntity.ok().body(novaLocalizacao);
+	@RequestMapping(value="/recursos/tipos", method = RequestMethod.POST)
+    public ResponseEntity<?> save(@RequestBody TipoRecurso tipoRecurso) {
+		TipoRecurso novoTipoRecurso = this.service.save(tipoRecurso);
+        return ResponseEntity.ok().body(novoTipoRecurso);
     }
-	@PutMapping("/localizacao/edit/{id}")
+	@PutMapping("/recursos/tipos/edit/{id}")
 	public ResponseEntity<?> edit(@PathVariable(value="id") Long id, 
-			@RequestBody @Validated Localizacao localizacao){
-		return this.service.update(id, localizacao);
+			@RequestBody @Validated TipoRecurso tipoRecurso){
+		return this.service.update(id, tipoRecurso);
 		
 	}
-	@DeleteMapping("/localizacao/{id}")
+	@DeleteMapping("/recursos/tipos/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value="id") Long id){
 		return this.service.delete(id);
 	}

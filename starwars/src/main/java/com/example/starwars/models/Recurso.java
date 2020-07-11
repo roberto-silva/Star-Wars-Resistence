@@ -11,7 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 
 @Entity
@@ -20,20 +21,20 @@ public class Recurso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "rebelde_id", nullable = false)
-	@JsonIgnore
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "rebelde_id", nullable = true)
 	private Rebelde rebelde;
 	
 	@ManyToOne
 	private TipoRecurso tipo;
 	
 	@Column(name = "quantidade")
-	private String quantidade;
+	private Integer quantidade;
 
 	
 
@@ -41,7 +42,7 @@ public class Recurso implements Serializable {
 		super();
 	}
 
-	public Recurso(Long id, Rebelde rebelde, TipoRecurso tipo, String quantidade) {
+	public Recurso(Long id, Rebelde rebelde, TipoRecurso tipo, Integer quantidade) {
 		super();
 		this.id = id;
 		this.rebelde = rebelde;
@@ -66,11 +67,11 @@ public class Recurso implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(String quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 	
@@ -79,7 +80,7 @@ public class Recurso implements Serializable {
 		return rebelde;
 	}
 
-	public void setInventario(Rebelde rebelde) {
+	public void setRebelde(Rebelde rebelde) {
 		this.rebelde = rebelde;
 	}
 
