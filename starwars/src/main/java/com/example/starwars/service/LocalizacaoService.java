@@ -23,8 +23,8 @@ public class LocalizacaoService {
 	public Localizacao findById(long id) {
 		return this.repository.findById(id).get();
 	}
-	public Localizacao save(Localizacao inventario) {
-		return this.repository.save(inventario);
+	public Localizacao save(Localizacao localizacao) {
+		return this.repository.save(localizacao);
 	}
 
 	public ResponseEntity<?> delete(Long id) {

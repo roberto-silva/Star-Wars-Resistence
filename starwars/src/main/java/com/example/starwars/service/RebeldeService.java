@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.starwars.models.Localizacao;
 import com.example.starwars.models.Rebelde;
 import com.example.starwars.models.Recurso;
 import com.example.starwars.repository.RebeldeRepository;
@@ -34,11 +35,10 @@ public class RebeldeService {
 	}
 	
 	public Rebelde save(Rebelde rebelde) {
-		if (rebelde.getInventario() != null) {
+		if (rebelde.getInventario().size() > 0) {
 			ArrayList<Recurso> inventario = new ArrayList<Recurso>();
 			for (Recurso recurso : rebelde.getInventario()) {
-				this.recursoService.save(recurso);
-				inventario.add(recurso);
+				inventario.add(this.recursoService.findById(recurso.getId()));
 			}
 			rebelde.setInventario(inventario);
 		}
@@ -65,6 +65,17 @@ public class RebeldeService {
 		}else {
 			rebelde.setId(rebeldeSemEdicao.get().getId());
 			return new ResponseEntity<Rebelde>(repository.save(rebelde), HttpStatus.OK);
+		}
+	}
+
+	public ResponseEntity<?> updateLocalizacao(Long id, Localizacao localizacao) {
+		Localizacao novaLocalizacao = this.localizacaoService.save(localizacao);
+		Optional<Rebelde> rebelde = repository.findById(id);
+		if(!rebelde.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			rebelde.get().setLocalizacao(novaLocalizacao);
+			return new ResponseEntity<Rebelde>(repository.save(rebelde.get()), HttpStatus.OK);
 		}
 	}
 }
