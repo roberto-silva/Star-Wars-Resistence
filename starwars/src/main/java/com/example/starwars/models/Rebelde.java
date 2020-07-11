@@ -5,9 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 @Entity
 @Table(name="rebelde")
 public class Rebelde implements Serializable {
@@ -34,15 +36,15 @@ public class Rebelde implements Serializable {
 	@OneToOne
 	private Localizacao localizacao;
 	
-	@OneToOne
-	private Inventario inventario;
+	@OneToMany
+	private List<Recurso> inventario;
 	
 	public Rebelde() {
 		super();
 	}
 
 	public Rebelde(Long id, String name, int idade, String genero, boolean traidor, Localizacao localizacao,
-			Inventario inventario) {
+			List<Recurso> inventario) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -101,11 +103,11 @@ public class Rebelde implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public Inventario getInventario() {
+	public List<Recurso> getInventario() {
 		return inventario;
 	}
 
-	public void setInventario(Inventario inventario) {
+	public void setInventario(List<Recurso> inventario) {
 		this.inventario = inventario;
 	}
 
