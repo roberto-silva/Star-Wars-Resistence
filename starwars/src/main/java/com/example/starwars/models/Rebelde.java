@@ -36,15 +36,15 @@ public class Rebelde implements Serializable {
 	@OneToOne
 	private Localizacao localizacao;
 	
-	@OneToMany
-	private List<Recurso> inventario;
+	@OneToOne
+	private Inventario inventario;
 	
 	public Rebelde() {
 		super();
 	}
 
 	public Rebelde(Long id, String name, int idade, String genero, boolean traidor, Localizacao localizacao,
-			List<Recurso> inventario) {
+			Inventario inventario) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -103,11 +103,11 @@ public class Rebelde implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public List<Recurso> getInventario() {
+	public Inventario getInventario() {
 		return inventario;
 	}
 
-	public void setInventario(List<Recurso> inventario) {
+	public void setInventario(Inventario inventario) {
 		this.inventario = inventario;
 	}
 
