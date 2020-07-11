@@ -25,28 +25,30 @@ public class RecursoController {
 	
 	@Autowired
 	private RecursoService service;
-	
+	//Enpoint listar recursos
 	@GetMapping("/recursos")
 	public List<Recurso> listarRebeldes(){
 		return this.service.findAll();
 	}
-	
+	//Enpoint listar um recurso pelo id
 	@GetMapping("/recursos/{id}")
 	public Recurso getRebeldeById(@PathVariable(value="id") Long id) {
 		return this.service.findById(id);
 	}
-
+	//Enpoint cadastrar um recursos
 	@RequestMapping(value="/recursos", method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody Recurso recurso) {
 		Recurso novoRecurso = this.service.save(recurso);
         return ResponseEntity.ok().body(novoRecurso);
     }
+	//Enpoint editar um recurso
 	@PutMapping("/recursos/edit/{id}")
 	public ResponseEntity<?> edit(@PathVariable(value="id") Long id, 
 			@RequestBody @Validated Recurso localizacao){
 		return this.service.update(id, localizacao);
 		
 	}
+	//Enpoint deletar um recursos
 	@DeleteMapping("/recursos/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value="id") Long id){
 		return this.service.delete(id);

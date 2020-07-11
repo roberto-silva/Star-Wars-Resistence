@@ -26,27 +26,31 @@ public class TipoRecursoController {
 	@Autowired
 	private TipoRecursoService service;
 	
+	//Enpoint listar os tipos de recursos
 	@GetMapping("/recursos/tipos")
 	public List<TipoRecurso> listarRebeldes(){
 		return this.service.findAll();
 	}
 	
+	//Enpoint listar um tipo de recurso pelo id
 	@GetMapping("/recursos/tipos/{id}")
 	public TipoRecurso getRebeldeById(@PathVariable(value="id") Long id) {
 		return this.service.findById(id);
 	}
-	
+	//Enpoint cadastrar  um tipo de recurso
 	@RequestMapping(value="/recursos/tipos", method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody TipoRecurso tipoRecurso) {
 		TipoRecurso novoTipoRecurso = this.service.save(tipoRecurso);
         return ResponseEntity.ok().body(novoTipoRecurso);
     }
+	//Enpoint editar um tipo de recurso
 	@PutMapping("/recursos/tipos/edit/{id}")
 	public ResponseEntity<?> edit(@PathVariable(value="id") Long id, 
 			@RequestBody @Validated TipoRecurso tipoRecurso){
 		return this.service.update(id, tipoRecurso);
 		
 	}
+	//Enpoint deletar um tipo de recurso
 	@DeleteMapping("/recursos/tipos/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value="id") Long id){
 		return this.service.delete(id);

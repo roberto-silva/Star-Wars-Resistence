@@ -26,27 +26,34 @@ public class LocalizacaoController {
 	@Autowired
 	private LocalizacaoService service;
 	
+	//Enpoint listar as localizações cadastradas
 	@GetMapping("/localizacao")
 	public List<Localizacao> listarRebeldes(){
 		return this.service.findAll();
 	}
 	
+	//Enpoint listar uma localização pelo id
 	@GetMapping("/localizacao/{id}")
 	public Localizacao getRebeldeById(@PathVariable(value="id") Long id) {
 		return this.service.findById(id);
 	}
 	
+	//Enpoint cadastrar uma localização
 	@RequestMapping(value="/localizacao", method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody Localizacao localizacao) {
 		Localizacao novaLocalizacao = this.service.save(localizacao);
         return ResponseEntity.ok().body(novaLocalizacao);
     }
+	
+	//Enpoint editar uma localização
 	@PutMapping("/localizacao/edit/{id}")
 	public ResponseEntity<?> edit(@PathVariable(value="id") Long id, 
 			@RequestBody @Validated Localizacao localizacao){
 		return this.service.update(id, localizacao);
 		
 	}
+	
+	//Enpoint deletar uma localização
 	@DeleteMapping("/localizacao/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value="id") Long id){
 		return this.service.delete(id);
