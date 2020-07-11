@@ -55,6 +55,20 @@ public class RebeldeController {
 		return this.service.updateLocalizacao(id, localizacao);
 		
 	}
+	
+	@PatchMapping("/rebeldes/reporte/{id}")
+	public ResponseEntity<?> reporteRebelde(@PathVariable(value="id") Long id){
+		return this.service.reporteRebelde(id);
+		
+	}
+	
+	@PatchMapping("/rebeldes/{id}/recursos/{idRecurso1}/troca/{idTroca}/recursos{idRecurso2}")
+	public ResponseEntity<?> reporteRebelde(@PathVariable(value="id") Long id, Long idTroca,  
+			Long idRecurso1, Long idRecurso2 ){
+		return this.service.trocaEntreRebeldes(id, idTroca, idRecurso1, idRecurso2);
+		
+	}
+	
 	@DeleteMapping("/rebeldes/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value="id") Long id){
 		return this.service.delete(id);

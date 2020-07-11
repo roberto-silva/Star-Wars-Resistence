@@ -40,6 +40,9 @@ public class Rebelde implements Serializable {
 	@Column(name = "traidor")
 	private boolean traidor;
 	
+	@Column(name = "reportes")
+	private int reportes = 0;
+	
 	@OneToOne
 	private Localizacao localizacao;
 	
@@ -51,16 +54,21 @@ public class Rebelde implements Serializable {
 		super();
 	}
 
-	public Rebelde(Long id, String name, int idade, String genero, boolean traidor, Localizacao localizacao) {
+	
+
+	public Rebelde(Long id, String nome, int idade, String genero, boolean traidor, int reportes,
+			Localizacao localizacao) {
 		super();
 		this.id = id;
-		this.nome = name;
+		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.traidor = traidor;
+		this.reportes = reportes;
 		this.localizacao = localizacao;
-
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -117,6 +125,16 @@ public class Rebelde implements Serializable {
 	public void setInventario(List<Recurso> inventario) {
 		this.inventario = inventario;
 	}
+	
+	
+	public int getReportes() {
+		return reportes;
+	}
+	public void addReportes() {
+		this.reportes = this.reportes + 1;
+	}
+
+
 
 	@Override
 	public int hashCode() {
